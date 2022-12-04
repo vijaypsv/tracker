@@ -32,7 +32,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  */
 @RestController
 @RequestMapping("/session")
-@Tag(name = "Session tracker", description = "Tracks microservice activity")
+@Tag(name = "Tracking Microservice", description = "Tracks microservice activity")
 public class SessionController {
     private final SessionService sessionService;
 
@@ -42,38 +42,38 @@ public class SessionController {
     }
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(tags = "Session tracker", value = "Creates a new user session in a specific machine")
+    @ApiOperation(tags = "Tracking Microservice", value = "Creates a new user session in a specific machine")
     CreateSessionResponse createSession(@RequestBody @Valid final CreateSessionRequest createSessionRequest) {
         final UUID sessionId = sessionService.createSession(createSessionRequest.getSession());
         return new CreateSessionResponse(sessionId.toString());
     }
 
     @GetMapping(value = "/")
-    @ApiOperation(tags = "Session tracker", value = "Gests a list of all the sesions")
+    @ApiOperation(tags = "Tracking Microservice", value = "Gests a list of all the sesions")
     List<Session> getSessions() {
         return sessionService.getSessions();
     }
 
     @GetMapping(value = "/{sessionId}")
-    @ApiOperation(tags = "Session tracker", value = "Gets a session by its id")
+    @ApiOperation(tags = "Tracking Microservice", value = "Gets a session by its id")
     Session getSession(@PathVariable @Uuid @Valid final String sessionId) {
         return sessionService.getSession(UUID.fromString(sessionId));
     }
 
     @PutMapping(value = "/{sessionId}/end")
-    @ApiOperation(tags = "Session tracker", value = "Ends a session")
+    @ApiOperation(tags = "Tracking Microservice", value = "Ends a session")
     void endSession(@PathVariable final UUID sessionId, @RequestBody final EndSessionRequest endSessionRequest) {
         sessionService.endSession(sessionId, endSessionRequest.getEndtAt());
     }
 
     @PutMapping(value = "/{sessionId}/events")
-    @ApiOperation(tags = "Session tracker", value = "Adds an event to a session")
+    @ApiOperation(tags = "Tracking Microservice", value = "Adds an event to a session")
     void addEvent(@PathVariable final UUID sessionId, @RequestBody @Valid final AddEventRequest addEventRequest) {
         sessionService.addEvent(sessionId, addEventRequest.getEvent());
     }
 
     @PutMapping(value = "/{sessionId}/events/batch")
-    @ApiOperation(tags = "Session tracker", value = "Adds multiple events to a session")
+    @ApiOperation(tags = "Tracking Microservice", value = "Adds multiple events to a session")
     void addEventBatch(@PathVariable final UUID sessionId, @RequestBody @Valid final AddEventBatchRequest addEventBatchRequest) {
         sessionService.addEvents(sessionId, addEventBatchRequest.getEvents());
     }
