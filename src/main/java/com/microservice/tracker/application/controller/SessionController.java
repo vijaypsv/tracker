@@ -1,11 +1,14 @@
 package com.microservice.tracker.application.controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.microservice.tracker.application.request.CreateSessionRequest;
 import com.microservice.tracker.application.response.CreateSessionResponse;
+import com.microservice.tracker.domain.model.Session;
 import com.microservice.tracker.domain.service.SessionService;
 
 import io.swagger.annotations.ApiOperation;
@@ -25,7 +29,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/session")
 @Tag(name = "Session tracker", description = "Tracks microservice activity")
 public class SessionController {
-
     private final SessionService sessionService;
 
     @Autowired
@@ -38,5 +41,17 @@ public class SessionController {
     CreateSessionResponse createSession(@RequestBody @Valid final CreateSessionRequest createSessionRequest) {
         final UUID sessionId = sessionService.createSession(createSessionRequest.getSession());
         return new CreateSessionResponse(sessionId.toString());
+    }
+
+    @GetMapping(value = "/")
+    @ApiOperation(tags = "Session tracker", value = "Gests a list of all the sesions")
+    List<Session> getSessions() {
+        return sessionService.getSessions();
+    }
+
+    @GetMapping(value = "/{sessionId}")
+    @ApiOperation(tags = "Session tracker", value = "Gets a session by its id")
+    Session getSession(@PathVariable final UUID sessionId) {
+        return sessionService.getSession(sessionId);
     }
 }
