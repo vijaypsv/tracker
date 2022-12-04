@@ -10,11 +10,13 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.microservice.tracker.application.request.CreateSessionRequest;
+import com.microservice.tracker.application.request.EndSessionRequest;
 import com.microservice.tracker.application.response.CreateSessionResponse;
 import com.microservice.tracker.application.validator.Uuid;
 import com.microservice.tracker.domain.model.Session;
@@ -54,5 +56,11 @@ public class SessionController {
     @ApiOperation(tags = "Session tracker", value = "Gets a session by its id")
     Session getSession(@PathVariable @Uuid @Valid final String sessionId) {
         return sessionService.getSession(UUID.fromString(sessionId));
+    }
+
+    @PutMapping(value = "/{sessionId}/end")
+    @ApiOperation(tags = "Session tracker", value = "Ends a session")
+    void endSession(@PathVariable final UUID sessionId, @RequestBody final EndSessionRequest endSessionRequest) {
+        sessionService.endSession(sessionId, endSessionRequest.getEndtAt());
     }
 }
