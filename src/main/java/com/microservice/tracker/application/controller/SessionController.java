@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.microservice.tracker.application.request.AddEventRequest;
 import com.microservice.tracker.application.request.CreateSessionRequest;
 import com.microservice.tracker.application.request.EndSessionRequest;
 import com.microservice.tracker.application.response.CreateSessionResponse;
@@ -62,5 +63,11 @@ public class SessionController {
     @ApiOperation(tags = "Session tracker", value = "Ends a session")
     void endSession(@PathVariable final UUID sessionId, @RequestBody final EndSessionRequest endSessionRequest) {
         sessionService.endSession(sessionId, endSessionRequest.getEndtAt());
+    }
+
+    @PutMapping(value = "/{sessionId}/events")
+    @ApiOperation(tags = "Session tracker", value = "Adds an event to a session")
+    void addEvent(@PathVariable final UUID sessionId, @RequestBody @Valid final AddEventRequest addEventRequest) {
+        sessionService.addEvent(sessionId, addEventRequest.getEvent());
     }
 }
