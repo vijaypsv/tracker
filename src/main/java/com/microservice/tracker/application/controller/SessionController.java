@@ -13,11 +13,15 @@ import com.microservice.tracker.application.request.CreateSessionRequest;
 import com.microservice.tracker.application.response.CreateSessionResponse;
 import com.microservice.tracker.domain.service.SessionService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 /**
  * Main controller for the tracker application
  */
 @RestController
 @RequestMapping("/session")
+@Tag(name = "Session tracker", description = "Tracks microservice activity")
 public class SessionController {
 
     private final SessionService sessionService;
@@ -28,6 +32,7 @@ public class SessionController {
     }
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(tags = "Session tracker", value = "Creates a new user session in a specific machine")
     CreateSessionResponse createSession(@RequestBody final CreateSessionRequest createSessionRequest) {
         final UUID sessionId = sessionService.createSession(createSessionRequest.getSession());
         return new CreateSessionResponse(sessionId.toString());
