@@ -2,6 +2,8 @@ package com.microservice.tracker.application.controller;
 
 import java.util.UUID;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +35,7 @@ public class SessionController {
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(tags = "Session tracker", value = "Creates a new user session in a specific machine")
-    CreateSessionResponse createSession(@RequestBody final CreateSessionRequest createSessionRequest) {
+    CreateSessionResponse createSession(@RequestBody @Valid final CreateSessionRequest createSessionRequest) {
         final UUID sessionId = sessionService.createSession(createSessionRequest.getSession());
         return new CreateSessionResponse(sessionId.toString());
     }
