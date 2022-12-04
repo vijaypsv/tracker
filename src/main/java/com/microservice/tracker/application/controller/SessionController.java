@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.microservice.tracker.application.request.CreateSessionRequest;
 import com.microservice.tracker.application.response.CreateSessionResponse;
+import com.microservice.tracker.application.validator.Uuid;
 import com.microservice.tracker.domain.model.Session;
 import com.microservice.tracker.domain.service.SessionService;
 
@@ -51,7 +52,7 @@ public class SessionController {
 
     @GetMapping(value = "/{sessionId}")
     @ApiOperation(tags = "Session tracker", value = "Gets a session by its id")
-    Session getSession(@PathVariable final UUID sessionId) {
-        return sessionService.getSession(sessionId);
+    Session getSession(@PathVariable @Uuid @Valid final String sessionId) {
+        return sessionService.getSession(UUID.fromString(sessionId));
     }
 }
