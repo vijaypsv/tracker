@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AddEventRequest {
     @NotNull (message = "eventAt required")
-    @Min(value = 946684800000L, message = "incorrect timestamp for eventAt")
+    @Min(value = 946684800000L, message = "incorrect timestamp for eventAt. It should represent a date higher than 01/01/2000") // TODO ask business if there is a date limitation
     @ApiModelProperty(example = "946684800000")
     private Long eventAt;
     @NotNull (message = "eventType required")
