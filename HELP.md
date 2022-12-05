@@ -19,7 +19,7 @@ Assuming you have configured docker to launch on localhost, you can check the fo
 * [H2 console to check the database.](http://localhost:8080/h2-console/) This should be used only in develop environments
 
 For the grafana instance there is a provisioned monitoring dashboard based on [this one](https://grafana.com/grafana/dashboards/6756-spring-boot-statistics/).
-There is a known bug with the prometheus data source the first time you launch the container (the dashboard doesn't detect the data source).
+There is a bug with the prometheus data source the first time you launch the container (the dashboard doesn't detect the data source).
 To solve this problem just edit the data source and click the "Save and test" button and you will be able to see the dashboard correctly.
 
 ### Reference Documentation
