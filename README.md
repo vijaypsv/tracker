@@ -34,6 +34,9 @@ it also brings us consistency issues if the retrieved session is not the latest 
 
 If we made the EventEntity the owner of the relationship we could still have consistency issues (for example if a session was deleted we could have retrieved it before), but they would be less common, and we could leave with optimistic locking without major impact. 
 
+## Deployment
+Check this [link](HELP.md) to see how to deploy the application.
+
 ## Future improvements
 
 * The first thing we should do is finish the unit tests and add a couple of integration tests (specially for the jpa repositories). There are also a lot of TODOs left to complete in the application.
